@@ -86,75 +86,9 @@ The SVG is rasterized using [Svg.NET](https://github.com/svg-net/SVG) at full re
 
 ---
 
-## Settings
+## Feedback & issues
 
-Open **File → Settings → Dataverse Blueprint**:
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Include Relationships | On | Emit relationship lines across all formats |
-| Include System Attributes | Off | Include built-in (non-custom) attributes per entity |
-
-The last selected filter and solution name are restored automatically on next launch.
-
----
-
-## Building from source
-
-```bash
-git clone https://github.com/ejadull/DataverseBlueprint.git
-cd DataverseBlueprint
-```
-
-Place the XrmToolBox DLLs in a `XrmToolbox\` folder at the solution root (copy from your XrmToolBox installation):
-
-```
-XrmToolbox/
-  XrmToolBox.Extensibility.dll
-  McTools.Xrm.Connection.dll
-  McTools.Xrm.Connection.WinForms.dll
-  Microsoft.Xrm.Sdk.dll
-  Microsoft.Xrm.Tooling.Connector.dll
-  Microsoft.Web.WebView2.Core.dll
-  Microsoft.Web.WebView2.WinForms.dll
-```
-
-Restore, test, and build:
-
-```bash
-dotnet restore
-dotnet test DataverseBlueprint.Tests/DataverseBlueprint.Tests.csproj
-dotnet build -c Release DataverseBlueprint/DataverseBlueprint.csproj
-```
-
----
-
-## Architecture
-
-```
-DataverseBlueprint/
-├── Models/                          — Immutable domain models (Entity, Attribute, Relationship)
-├── Services/
-│   ├── IMetadataService.cs          — Metadata loading contract
-│   └── MetadataService.cs           — RetrieveAllEntitiesRequest → domain models
-├── Exporters/
-│   ├── DbDiagramExporter.cs         — DBML
-│   ├── MermaidExporter.cs           — Mermaid erDiagram
-│   ├── PlantUmlExporter.cs          — PlantUML entity diagram
-│   ├── PngConverter.cs              — SVG → PNG via Svg.NET
-│   ├── WebView2SvgRenderer.cs       — Mermaid → SVG via WebView2 + mermaid.js
-│   └── MermaidInkSvgRenderer.cs     — Mermaid → SVG via mermaid.ink (fallback)
-├── Settings/
-│   └── DataverseBlueprintSettings.cs
-├── DataverseBlueprintPlugin.cs      — XrmToolBox entry point (IPluginMetadata)
-└── DataverseBlueprintControl.cs     — WinForms UI
-```
-
----
-
-## Contributing
-
-Bug reports and pull requests are welcome at [github.com/ejadull/DataverseBlueprint/issues](https://github.com/ejadull/DataverseBlueprint/issues).
+Open an issue at [github.com/ejadull/DataverseBlueprint/issues](https://github.com/ejadull/DataverseBlueprint/issues).
 
 ---
 
