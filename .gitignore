@@ -1,0 +1,24 @@
+# Build output
+bin/
+obj/
+*.nupkg
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Publish profiles (keep the definition, not the user override)
+*.pubxml.user
+
+# XrmToolBox host DLLs — must be provided locally, not committed
+XrmToolbox/
+XrmToolbox.zip
+
+# VS template used to bootstrap — not needed in repo
+XrmToolBox_PluginTemplate.vsix
+
+# Internal SDD / project management artifacts
+openspec/
+.atl/
