@@ -12,15 +12,10 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\XrmToolbox\Microsoft.Xrm.Sdk.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Crm.Sdk.Proxy">
-      <HintPath>..\XrmToolbox\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
-    </Reference>
+    <!-- XrmToolBox + Xrm SDK DLLs copied to test output so the test runner can load DataverseBlueprint.dll -->
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2025.10.74" />
+    <PackageReference Include="MscrmTools.Xrm.Connection" Version="1.2025.9.64" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
@@ -11,6 +11,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyTitle>Dataverse Blueprint</AssemblyTitle>
     <ApplicationIcon>dataverse-blueprint.ico</ApplicationIcon>
+    <Title>Dataverse Blueprint</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -29,38 +30,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- XrmToolBox host DLLs: compile-time only, NOT copied to output (host provides them at runtime) -->
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2025.10.74">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <!-- Pin McTools to the version XrmToolBox.Extensibility 1.2025.10.74 was compiled against.
+         XrmToolBoxPackage declares 1.2025.7.63 in its nuspec but ships a DLL that requires 1.2025.9.64. -->
+    <!-- Pin to the version XrmToolBox.Extensibility 1.2025.10.74 was compiled against.
+         XrmToolBoxPackage declares 1.2025.7.63 in its nuspec but ships a DLL that requires 1.2025.9.64. -->
+    <PackageReference Include="MscrmTools.Xrm.Connection" Version="1.2025.9.64">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <!-- WebView2 managed wrappers: compile-time only (XrmToolBox host or WebView2 runtime provides them) -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <!-- Svg.NET for PNG conversion: copied to output (not provided by XrmToolBox) -->
     <PackageReference Include="Svg" Version="3.4.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="XrmToolBox.Extensibility">
-      <HintPath>..\XrmToolbox\XrmToolBox.Extensibility.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="McTools.Xrm.Connection">
-      <HintPath>..\XrmToolbox\McTools.Xrm.Connection.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="McTools.Xrm.Connection.WinForms">
-      <HintPath>..\XrmToolbox\McTools.Xrm.Connection.WinForms.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\XrmToolbox\Microsoft.Xrm.Sdk.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Tooling.Connector">
-      <HintPath>..\XrmToolbox\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core">
-      <HintPath>..\XrmToolbox\Microsoft.Web.WebView2.Core.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms">
-      <HintPath>..\XrmToolbox\Microsoft.Web.WebView2.WinForms.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
   </ItemGroup>
 
 </Project>
