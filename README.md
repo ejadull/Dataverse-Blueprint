@@ -45,7 +45,7 @@ Connect to any Dataverse environment, select the entities you care about, and ex
 
 ### Manual installation
 
-1. Download `DataverseBlueprint.1.x.x.nupkg` from [GitHub Releases](https://github.com/ejadull/DataverseBlueprint/releases)
+1. Download `DataverseBlueprint.1.x.x.nupkg` from [GitHub Releases](https://github.com/ejadull/Dataverse-Blueprint/releases)
 2. Copy all DLLs from the `Plugins\` folder inside the package to:
    ```
    %APPDATA%\MscrmTools\XrmToolBox\Plugins\
@@ -88,7 +88,7 @@ The SVG is rasterized using [Svg.NET](https://github.com/svg-net/SVG) at full re
 
 ## Feedback & issues
 
-Open an issue at [github.com/ejadull/DataverseBlueprint/issues](https://github.com/ejadull/DataverseBlueprint/issues).
+Open an issue at [github.com/ejadull/Dataverse-Blueprint/issues](https://github.com/ejadull/Dataverse-Blueprint/issues).
 
 ---
 

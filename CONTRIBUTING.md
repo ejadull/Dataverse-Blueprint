@@ -23,7 +23,7 @@ The last selected filter and solution name are restored automatically on next la
 ### Setup
 
 ```bash
-git clone https://github.com/ejadull/DataverseBlueprint.git
+git clone https://github.com/ejadull/Dataverse-Blueprint.git
 cd DataverseBlueprint
 ```
 
@@ -127,4 +127,4 @@ Publishing is fully automated via GitHub Actions. The only manual steps are bump
 
 ## Contributing
 
-Bug reports and pull requests are welcome. Open an issue at [github.com/ejadull/DataverseBlueprint/issues](https://github.com/ejadull/DataverseBlueprint/issues) before starting significant work.
+Bug reports and pull requests are welcome. Open an issue at [github.com/ejadull/Dataverse-Blueprint/issues](https://github.com/ejadull/Dataverse-Blueprint/issues) before starting significant work.

@@ -8,9 +8,9 @@
     <owners>ejadull</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/ejadull/DataverseBlueprint</projectUrl>
-    <repository type="git" url="https://github.com/ejadull/DataverseBlueprint" />
-    <iconUrl>https://raw.githubusercontent.com/ejadull/DataverseBlueprint/master/icons/icon-64.png</iconUrl>
+    <projectUrl>https://github.com/ejadull/Dataverse-Blueprint</projectUrl>
+    <repository type="git" url="https://github.com/ejadull/Dataverse-Blueprint" />
+    <iconUrl>https://raw.githubusercontent.com/ejadull/Dataverse-Blueprint/master/icons/icon-64.png</iconUrl>
     <icon>icons\icon-64.png</icon>
     <readme>README.md</readme>
     <description>Export your Dataverse entity data model to DBML, Mermaid, PlantUML, SVG and PNG. Filter by All, Custom Only, or By Solution. Select individual entities and export in one click.</description>
