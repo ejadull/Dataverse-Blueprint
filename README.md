@@ -1,150 +1,115 @@
 # Dataverse Blueprint
 
-An [XrmToolBox](https://www.xrmtoolbox.com) plugin that exports your Microsoft Dataverse entity data model to multiple diagram and document formats.
+[![NuGet](https://img.shields.io/nuget/v/DataverseBlueprint.svg)](https://www.nuget.org/packages/DataverseBlueprint)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![XrmToolBox](https://img.shields.io/badge/XrmToolBox-plugin-orange.svg)](https://www.xrmtoolbox.com)
 
-## Features
+An [XrmToolBox](https://www.xrmtoolbox.com) plugin that exports your Microsoft Dataverse entity data model to multiple diagram and documentation formats — so you can visualize, share, and document your schema without writing a single line of code.
 
-- **Load entities** from any Dataverse environment — filter by All, Custom Only, or By Solution
-- **Select/deselect** individual entities before exporting
-- **Five export formats**:
-  - **DBML** — [dbdiagram.io](https://dbdiagram.io) compatible schema
-  - **Mermaid** — ER diagram syntax for GitHub, GitLab, Notion, and [mermaid.live](https://mermaid.live)
-  - **PlantUML** — entity diagram for PlantUML renderers
-  - **SVG** — vector graphic rendered from the Mermaid diagram
-  - **PNG** — raster image converted from the SVG
+---
+
+## What it does
+
+Connect to any Dataverse environment, select the entities you care about, and export the full entity relationship diagram in one click.
+
+| Format | Best for |
+|--------|----------|
+| **DBML** | [dbdiagram.io](https://dbdiagram.io) — interactive ER diagrams |
+| **Mermaid** | GitHub, GitLab, Notion, Confluence, [mermaid.live](https://mermaid.live) |
+| **PlantUML** | UML-based documentation pipelines |
+| **SVG** | Scalable vector diagrams for docs and presentations |
+| **PNG** | Raster images for reports, slides, and wikis |
+
+---
 
 ## Requirements
 
-| Requirement | Version |
-|-------------|---------|
-| XrmToolBox | 1.2023.x or later |
+| Component | Minimum version |
+|-----------|-----------------|
+| XrmToolBox | 1.2023.x |
 | .NET Framework | 4.8 |
-| WebView2 Runtime | Latest (for SVG/PNG export — [download](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)) |
+| Microsoft Edge WebView2 Runtime | Latest ([download](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)) |
 
-> **SVG and PNG export** require the WebView2 Runtime to be installed. If it is absent the plugin falls back to the [mermaid.ink](https://mermaid.ink) public API (requires internet access).
+> **WebView2** is only required for SVG and PNG export. If not installed, the plugin automatically falls back to the [mermaid.ink](https://mermaid.ink) public API.
+
+---
 
 ## Installation
 
-### Via XrmToolBox Tool Library (recommended)
+### Via XrmToolBox Tool Library
 
 1. Open XrmToolBox
 2. Go to **Tool Library**
 3. Search for **Dataverse Blueprint**
-4. Click **Install**
+4. Click **Install** and restart XrmToolBox
 
-### Manual installation (from a release)
+### Manual installation
 
-1. Download the latest `.nupkg` from [Releases](https://github.com/ejadull/Dataverse-Blueprint/releases)
-2. Copy all DLLs from the package `lib\net48\` folder into your XrmToolBox `Plugins\` directory
+1. Download `DataverseBlueprint.1.x.x.nupkg` from [GitHub Releases](https://github.com/ejadull/DataverseBlueprint/releases)
+2. Copy all DLLs from the `Plugins\` folder inside the package to:
+   ```
+   %APPDATA%\MscrmTools\XrmToolBox\Plugins\
+   ```
 3. Restart XrmToolBox
 
-### Local installation (from source)
+---
 
-Use this method while the plugin is not yet in the Tool Library, or to test your own changes.
-
-**Step 1 — Build in Release mode**
-
-```powershell
-dotnet build -c Release DataverseBlueprint/DataverseBlueprint.csproj
-```
-
-**Step 2 — Locate your XrmToolBox Plugins folder**
-
-The default path is:
-
-```
-%APPDATA%\MscrmTools\XrmToolBox\Plugins\
-```
-
-Open it directly from Explorer:
-
-```powershell
-start %APPDATA%\MscrmTools\XrmToolBox\Plugins
-```
-
-> If the folder does not exist, launch XrmToolBox at least once so it creates its directory structure.
-
-**Step 3 — Copy the plugin and its dependencies**
-
-Copy these files from `DataverseBlueprint\bin\Release\net48\` into the Plugins folder:
-
-| File | Purpose |
-|------|---------|
-| `DataverseBlueprint.dll` | The plugin |
-| `Svg.dll` | SVG → PNG conversion |
-| `ExCSS.dll` | Dependency of Svg.NET |
-| `System.Buffers.dll` | Dependency of Svg.NET |
-| `System.Memory.dll` | Dependency of Svg.NET |
-| `System.Numerics.Vectors.dll` | Dependency of Svg.NET |
-| `System.Runtime.CompilerServices.Unsafe.dll` | Dependency of Svg.NET |
-
-One-liner (PowerShell, run from the solution root after building):
-
-```powershell
-$src  = "DataverseBlueprint\bin\Release\net48"
-$dest = "$env:APPDATA\MscrmTools\XrmToolBox\Plugins"
-$files = @(
-    "DataverseBlueprint.dll",
-    "Svg.dll", "ExCSS.dll",
-    "System.Buffers.dll", "System.Memory.dll",
-    "System.Numerics.Vectors.dll",
-    "System.Runtime.CompilerServices.Unsafe.dll"
-)
-$files | ForEach-Object { Copy-Item "$src\$_" -Destination $dest -Force }
-Write-Host "Done. Restart XrmToolBox."
-```
-
-**Step 4 — Restart XrmToolBox**
-
-Close and reopen XrmToolBox. Search for **Dataverse Blueprint** in the plugin list — it should appear without needing the Tool Library.
-
-## Usage
+## Getting started
 
 1. **Connect** to a Dataverse environment using the XrmToolBox connection manager
-2. Select a **filter**:
+2. **Choose a filter**
    - *All* — every entity in the environment
-   - *Custom Only* — entities where `IsCustomEntity = true`
-   - *By Solution* — type the solution unique name in the text box
-3. Click **Load Entities** — the list populates with all matching entities, all pre-selected
-4. **Check/uncheck** the entities to include in the export (or use Select All / Deselect All)
-5. Click one of the **Export as** buttons and choose a save location
+   - *Custom Only* — entities with `IsCustomEntity = true`
+   - *By Solution* — type the solution unique name
+3. Click **Load Entities**
+4. Select the entities to include (or use **Select All** / **Deselect All**)
+5. Click an **Export as** button and choose a destination file
 
-## Export Format Details
+---
+
+## Export formats in detail
 
 ### DBML
-Compatible with [dbdiagram.io](https://dbdiagram.io). Tables map to entities, columns to attributes, and `Ref:` lines to relationships. Many-to-Many relationships are represented as junction tables.
+Compatible with [dbdiagram.io](https://dbdiagram.io). Each entity becomes a table, each attribute becomes a column, and each relationship becomes a `Ref:` line. Many-to-Many intersect entities are included as junction tables.
 
 ### Mermaid
-Produces a fenced ` ```mermaid ``` ` block with `erDiagram` syntax. Paste it directly into GitHub Markdown, Notion, or open it in [mermaid.live](https://mermaid.live). Only relationships between the selected entities are emitted.
+Produces a fenced ` ```mermaid ``` ` block with `erDiagram` syntax. Paste it directly into a GitHub pull request description, a Notion page, or open it in [mermaid.live](https://mermaid.live). Only relationships between the selected entities are emitted, keeping large diagrams clean.
 
 ### PlantUML
-Produces an `@startuml` / `@enduml` entity diagram. Primary key attributes are marked with `*`. Compatible with any [PlantUML](https://www.plantuml.com/plantuml) renderer.
+Produces an `@startuml` / `@enduml` block with entity notation. Primary key attributes are marked with `*`. Works with any [PlantUML](https://www.plantuml.com/plantuml) renderer or CI pipeline integration.
 
-### SVG / PNG
-The Mermaid diagram is rendered inside an embedded WebView2 browser using the official [mermaid.js](https://mermaid.js.org/) library. The resulting SVG is captured from the DOM. For PNG, the SVG is rasterized via [Svg.NET](https://github.com/svg-net/SVG). If WebView2 is not installed the [mermaid.ink](https://mermaid.ink) public API is used as a fallback.
+### SVG
+The Mermaid diagram is rendered inside an embedded [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) browser using the official [mermaid.js](https://mermaid.js.org/) library. The resulting SVG is extracted directly from the DOM — no external service required when WebView2 is present. Falls back to [mermaid.ink](https://mermaid.ink) if WebView2 is not installed.
+
+### PNG
+The SVG is rasterized using [Svg.NET](https://github.com/svg-net/SVG) at full resolution. Useful for reports and documentation where a static image is preferred.
+
+---
 
 ## Settings
 
-Open **File → Settings → Dataverse Blueprint** to configure:
+Open **File → Settings → Dataverse Blueprint**:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Include Relationships | On | Emit relationship lines in all exports |
-| Include System Attributes | Off | Include non-custom attributes per entity |
+| Include Relationships | On | Emit relationship lines across all formats |
+| Include System Attributes | Off | Include built-in (non-custom) attributes per entity |
 
 The last selected filter and solution name are restored automatically on next launch.
 
-## Building from Source
+---
+
+## Building from source
 
 ```bash
-git clone https://github.com/ejadull/Dataverse-Blueprint.git
-cd Dataverse-Blueprint
+git clone https://github.com/ejadull/DataverseBlueprint.git
+cd DataverseBlueprint
 ```
 
-Place the XrmToolBox DLLs in `XrmToolbox\` at the solution root (copy them from your XrmToolBox installation):
+Place the XrmToolBox DLLs in a `XrmToolbox\` folder at the solution root (copy from your XrmToolBox installation):
 
 ```
-XrmToolbox\
+XrmToolbox/
   XrmToolBox.Extensibility.dll
   McTools.Xrm.Connection.dll
   McTools.Xrm.Connection.WinForms.dll
@@ -154,7 +119,7 @@ XrmToolbox\
   Microsoft.Web.WebView2.WinForms.dll
 ```
 
-Build and test:
+Restore, test, and build:
 
 ```bash
 dotnet restore
@@ -162,96 +127,37 @@ dotnet test DataverseBlueprint.Tests/DataverseBlueprint.Tests.csproj
 dotnet build -c Release DataverseBlueprint/DataverseBlueprint.csproj
 ```
 
-Produce the NuGet package:
-
-```bash
-nuget pack DataverseBlueprint.nuspec
-```
-
-### Regenerating icons
-
-The icon PNG files in `icons/` are committed to the repo. If you need to regenerate them (e.g. after a brand change), run:
-
-```powershell
-powershell -NoProfile -File scripts\Generate-Icons.ps1
-```
-
-## Publishing to XrmToolBox Tool Library
-
-Before submitting, verify every item in the official [Tool Library validation checklist](https://www.xrmtoolbox.com/documentation/for-developers/).
-
-### Pre-publish checklist
-
-**NuGet package**
-
-| Item | Status |
-|------|--------|
-| `<iconUrl>` declared in `.nuspec` | ✅ |
-| `<projectUrl>` declared in `.nuspec` | ✅ |
-| Plugin DLL and dependencies under `Plugins\` folder in the package | ✅ |
-| `AssemblyVersion` matches `<version>` in `.nuspec` | ✅ (both `1.0.0`) |
-
-**Tool behavior**
-
-| Item | Status |
-|------|--------|
-| Large tool display image (`BigImageBase64`) | ✅ 80×80 px |
-| Small tool display image (`SmallImageBase64`) | ✅ 32×32 px |
-| Controls resize with XrmToolBox window | ✅ Dock-based layout |
-| Opens without an organization connected | ✅ Load button is disabled |
-| Controls usable without connection (no errors) | ✅ Filter/solution controls are always enabled |
-| Controls requiring connection open the connection dialog | ✅ `ExecuteMethod` pattern |
-| Long-running operations are async | ✅ `WorkAsync` for entity load; `async void` for image export |
-
-### Step-by-step publish flow
-
-1. **Commit and push** all files including `icons/` to `ejadull/Dataverse-Blueprint` on GitHub
-2. **Verify the icon URL resolves** — open in browser:
-   `https://raw.githubusercontent.com/ejadull/Dataverse-Blueprint/main/icons/icon-64.png`
-3. **Build Release**
-   ```powershell
-   dotnet build -c Release DataverseBlueprint/DataverseBlueprint.csproj
-   ```
-4. **Pack**
-   ```powershell
-   nuget pack DataverseBlueprint.nuspec
-   ```
-5. **Verify package structure** — open `DataverseBlueprint.1.0.0.nupkg` with [NuGet Package Explorer](https://github.com/NuGetPackageExplorer/NuGetPackageExplorer) and confirm all DLLs are under `Plugins\`
-6. **Local smoke test** — copy DLLs to `%APPDATA%\MscrmTools\XrmToolBox\Plugins\`, restart XrmToolBox, and verify:
-   - Plugin appears in the list with icon
-   - Opens without connection (filter controls enabled, Load disabled)
-   - Connects and loads entities without error
-   - All five export formats produce valid output
-7. **Submit** — upload `.nupkg` at the [XrmToolBox portal](https://www.xrmtoolbox.com)
+---
 
 ## Architecture
 
 ```
 DataverseBlueprint/
-├── Models/                      — EntityModel, AttributeModel, RelationshipModel (immutable)
+├── Models/                          — Immutable domain models (Entity, Attribute, Relationship)
 ├── Services/
-│   ├── IMetadataService.cs      — loading contract (filter: All | CustomOnly | BySolution)
-│   └── MetadataService.cs       — RetrieveAllEntitiesRequest → domain models
+│   ├── IMetadataService.cs          — Metadata loading contract
+│   └── MetadataService.cs           — RetrieveAllEntitiesRequest → domain models
 ├── Exporters/
-│   ├── IExporter.cs             — text export contract: Export(entities) → string
-│   ├── ISvgRenderer.cs          — async SVG rendering contract
-│   ├── DbDiagramExporter.cs     — DBML output
-│   ├── MermaidExporter.cs       — Mermaid erDiagram output
-│   ├── PlantUmlExporter.cs      — PlantUML entity diagram output
-│   ├── PngConverter.cs          — SVG → Bitmap via Svg.NET
-│   ├── WebView2SvgRenderer.cs   — Mermaid → SVG via embedded WebView2 + mermaid.js
-│   └── MermaidInkSvgRenderer.cs — Mermaid → SVG via mermaid.ink HTTP API (fallback)
+│   ├── DbDiagramExporter.cs         — DBML
+│   ├── MermaidExporter.cs           — Mermaid erDiagram
+│   ├── PlantUmlExporter.cs          — PlantUML entity diagram
+│   ├── PngConverter.cs              — SVG → PNG via Svg.NET
+│   ├── WebView2SvgRenderer.cs       — Mermaid → SVG via WebView2 + mermaid.js
+│   └── MermaidInkSvgRenderer.cs     — Mermaid → SVG via mermaid.ink (fallback)
 ├── Settings/
-│   └── DataverseBlueprintSettings.cs — XML-serializable preferences (SettingsManager)
-├── DataverseBlueprintPlugin.cs         — XrmToolBox entry point (IPluginMetadata)
-├── DataverseBlueprintControl.cs        — WinForms UI logic
-└── DataverseBlueprintControl.Designer.cs
+│   └── DataverseBlueprintSettings.cs
+├── DataverseBlueprintPlugin.cs      — XrmToolBox entry point (IPluginMetadata)
+└── DataverseBlueprintControl.cs     — WinForms UI
 ```
+
+---
 
 ## Contributing
 
-Bug reports and pull requests are welcome at [github.com/ejadull/Dataverse-Blueprint/issues](https://github.com/ejadull/Dataverse-Blueprint/issues).
+Bug reports and pull requests are welcome at [github.com/ejadull/DataverseBlueprint/issues](https://github.com/ejadull/DataverseBlueprint/issues).
+
+---
 
 ## License
 
-MIT
+[MIT](LICENSE) © Edgardo Jadull
