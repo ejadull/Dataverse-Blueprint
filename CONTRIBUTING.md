@@ -106,12 +106,22 @@ DataverseBlueprint/
 
 ## Publishing a new version
 
-1. Bump `<version>` in `DataverseBlueprint.nuspec` and `AssemblyVersion` in `Properties/AssemblyInfo.cs`
-2. Build Release: `dotnet build -c Release DataverseBlueprint/DataverseBlueprint.csproj`
-3. Pack: `.\nuget.exe pack DataverseBlueprint.nuspec -OutputDirectory nupkg`
-4. Push to NuGet: `dotnet nuget push nupkg\DataverseBlueprint.X.Y.Z.nupkg --api-key <key> --source https://api.nuget.org/v3/index.json`
-5. Tag and release on GitHub: `git tag vX.Y.Z && git push origin vX.Y.Z`
-6. Create GitHub release and attach the `.nupkg` as an asset
+Publishing is fully automated via GitHub Actions. The only manual steps are bumping the version and pushing a tag.
+
+1. Edit `AssemblyVersion` in `DataverseBlueprint/Properties/AssemblyInfo.cs` to match the new version
+2. Commit: `git commit -am "chore: bump version to X.Y.Z"`
+3. Tag and push:
+   ```bash
+   git tag vX.Y.Z
+   git push origin master --tags
+   ```
+4. GitHub Actions takes over automatically:
+   - Patches the nuspec version from the tag
+   - Builds in Release, runs all tests
+   - Packs the `.nupkg` and pushes to NuGet.org
+   - Creates the GitHub release with the package attached
+
+> The NuGet API key is stored as the `NUGET_API_KEY` GitHub Actions secret — never in the repository.
 
 ---
 

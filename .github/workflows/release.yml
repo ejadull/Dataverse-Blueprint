@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    permissions:
+      contents: write   # required to create GitHub releases
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Extract version from tag
+        id: version
+        shell: pwsh
+        run: |
+          $ver = '${{ github.ref_name }}'.TrimStart('v')
+          echo "VERSION=$ver" >> $env:GITHUB_OUTPUT
+
+      - name: Patch nuspec version
+        shell: pwsh
+        run: |
+          $v = '${{ steps.version.outputs.VERSION }}'
+          (Get-Content DataverseBlueprint.nuspec -Raw) `
+            -replace '<version>[^<]+</version>', "<version>$v</version>" |
+            Set-Content DataverseBlueprint.nuspec
+
+      - name: Restore
+        run: dotnet restore DataverseBlueprint.sln
+
+      - name: Build Release
+        run: dotnet build DataverseBlueprint.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test DataverseBlueprint.Tests/DataverseBlueprint.Tests.csproj --no-build --configuration Release --logger "console;verbosity=normal"
+
+      - name: Download nuget.exe
+        shell: pwsh
+        run: Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile nuget.exe
+
+      - name: Pack
+        shell: pwsh
+        run: .\nuget.exe pack DataverseBlueprint.nuspec -OutputDirectory nupkg -Properties Configuration=Release
+
+      - name: Push to NuGet.org
+        shell: pwsh
+        run: |
+          dotnet nuget push "nupkg\DataverseBlueprint.${{ steps.version.outputs.VERSION }}.nupkg" `
+            --api-key ${{ secrets.NUGET_API_KEY }} `
+            --source https://api.nuget.org/v3/index.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            ## Dataverse Blueprint ${{ github.ref_name }}
+
+            Install directly from **XrmToolBox Tool Library** by searching for **Dataverse Blueprint** — no manual steps required.
+
+            **NuGet:** https://www.nuget.org/packages/DataverseBlueprint/${{ steps.version.outputs.VERSION }}
+          files: nupkg/DataverseBlueprint.${{ steps.version.outputs.VERSION }}.nupkg
