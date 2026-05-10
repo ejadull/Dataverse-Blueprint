@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>DataverseBlueprint</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>Dataverse Blueprint</title>
     <authors>ejadull</authors>
     <owners>ejadull</owners>
@@ -16,28 +16,23 @@
     <description>Export your Dataverse entity data model to DBML, Mermaid, PlantUML, SVG and PNG. Filter by All, Custom Only, or By Solution. Select individual entities and export in one click.</description>
     <summary>Export Dataverse entity model to DBML, Mermaid, PlantUML, SVG and PNG diagrams.</summary>
     <tags>XrmToolBox Dataverse PowerPlatform D365 Diagram Export DBML Mermaid PlantUML Blueprint EntityModel</tags>
-    <releaseNotes>v1.0.3 — Migrate to PackageReference; fix McTools.Xrm.Connection version conflict; add GitHub Actions CI/CD pipeline.</releaseNotes>
+    <releaseNotes>v1.0.4 — Fix AssemblyVersion to match NuGet version; fix IGitHubPlugin.RepositoryName.</releaseNotes>
     <copyright>Copyright 2026 ejadull</copyright>
     <dependencies>
       <group targetFramework="net48" />
     </dependencies>
   </metadata>
   <files>
+    <!-- Placeholder to suppress NU5128 (no lib assemblies — plugin package, not a library) -->
+    <file src="lib\net48\_._" target="lib\net48\" />
+
     <!-- README for NuGet.org package page -->
     <file src="README.md" target="" />
 
     <!-- NuGet package icon -->
     <file src="icons\icon-64.png" target="icons\" />
 
-    <!-- Plugin DLL -->
+    <!-- Plugin DLL (Svg.NET and its transitive deps merged in via ILMerge at build time) -->
     <file src="DataverseBlueprint\bin\Release\net48\DataverseBlueprint.dll" target="Plugins\" />
-
-    <!-- Svg.NET and its transitive dependencies (not shipped by XrmToolBox) -->
-    <file src="DataverseBlueprint\bin\Release\net48\Svg.dll"                                    target="Plugins\" />
-    <file src="DataverseBlueprint\bin\Release\net48\ExCSS.dll"                                  target="Plugins\" />
-    <file src="DataverseBlueprint\bin\Release\net48\System.Buffers.dll"                         target="Plugins\" />
-    <file src="DataverseBlueprint\bin\Release\net48\System.Memory.dll"                          target="Plugins\" />
-    <file src="DataverseBlueprint\bin\Release\net48\System.Numerics.Vectors.dll"                target="Plugins\" />
-    <file src="DataverseBlueprint\bin\Release\net48\System.Runtime.CompilerServices.Unsafe.dll" target="Plugins\" />
   </files>
 </package>

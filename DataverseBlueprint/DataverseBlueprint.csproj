@@ -34,8 +34,6 @@
     <PackageReference Include="XrmToolBoxPackage" Version="1.2025.10.74">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <!-- Pin McTools to the version XrmToolBox.Extensibility 1.2025.10.74 was compiled against.
-         XrmToolBoxPackage declares 1.2025.7.63 in its nuspec but ships a DLL that requires 1.2025.9.64. -->
     <!-- Pin to the version XrmToolBox.Extensibility 1.2025.10.74 was compiled against.
          XrmToolBoxPackage declares 1.2025.7.63 in its nuspec but ships a DLL that requires 1.2025.9.64. -->
     <PackageReference Include="MscrmTools.Xrm.Connection" Version="1.2025.9.64">
@@ -45,8 +43,16 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <!-- Svg.NET for PNG conversion: copied to output (not provided by XrmToolBox) -->
+    <!-- Svg.NET for PNG conversion: embedded into DataverseBlueprint.dll via Costura.Fody -->
     <PackageReference Include="Svg" Version="3.4.7" />
+    <!-- Embeds Svg.NET and its transitive deps as resources, extracts at runtime — single-DLL deploy -->
+    <PackageReference Include="Fody" Version="6.9.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Costura.Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

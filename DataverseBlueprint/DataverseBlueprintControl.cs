@@ -288,7 +288,7 @@ namespace DataverseBlueprint
         // --- IGitHubPlugin ---
 
         public string UserName => "ejadull";
-        public string RepositoryName => "Dataverse-Blueprint";
+        public string RepositoryName => "DataverseBlueprint";
 
         // --- ISettingsPlugin ---
 
