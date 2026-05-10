@@ -2,19 +2,21 @@
 <package>
   <metadata>
     <id>DataverseBlueprint</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>Dataverse Blueprint</title>
     <authors>ejadull</authors>
     <owners>ejadull</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/ejadull/DataverseBlueprint</projectUrl>
+    <repository type="git" url="https://github.com/ejadull/DataverseBlueprint" />
     <iconUrl>https://raw.githubusercontent.com/ejadull/DataverseBlueprint/master/icons/icon-64.png</iconUrl>
     <icon>icons\icon-64.png</icon>
     <readme>README.md</readme>
     <description>Export your Dataverse entity data model to DBML, Mermaid, PlantUML, SVG and PNG. Filter by All, Custom Only, or By Solution. Select individual entities and export in one click.</description>
     <summary>Export Dataverse entity model to DBML, Mermaid, PlantUML, SVG and PNG diagrams.</summary>
     <tags>XrmToolBox Dataverse PowerPlatform D365 Diagram Export DBML Mermaid PlantUML Blueprint EntityModel</tags>
-    <releaseNotes>v1.0.1 — Added embedded README for NuGet.org package page; corrected repository URLs.</releaseNotes>
+    <releaseNotes>v1.0.2 — Added MIT license, repository link, and embedded README for NuGet.org.</releaseNotes>
     <copyright>Copyright 2026 ejadull</copyright>
     <dependencies>
       <group targetFramework="net48" />
