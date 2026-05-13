@@ -10,7 +10,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/ejadull/Dataverse-Blueprint</projectUrl>
     <repository type="git" url="https://github.com/ejadull/Dataverse-Blueprint" />
-    <iconUrl>https://raw.githubusercontent.com/ejadull/Dataverse-Blueprint/main/icons/icon-64.png</iconUrl>
+    <icon>icons/icon-64.png</icon>
     <readme>README.md</readme>
     <description>Export your Dataverse entity data model to DBML, Mermaid, PlantUML, SVG and PNG. Filter by All, Custom Only, or By Solution. Select individual entities and export in one click.</description>
     <summary>Export Dataverse entity model to DBML, Mermaid, PlantUML, SVG and PNG diagrams.</summary>
@@ -18,12 +18,17 @@
     <releaseNotes>v1.0.10 — Republish with verified nuspec: XrmToolBox dependency declared via nuget.exe pack (not dotnet pack) to ensure the dependency survives packaging.</releaseNotes>
     <copyright>Copyright 2026 ejadull</copyright>
     <dependencies>
-      <dependency id="XrmToolBox" version="1.2025.10.74" />
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="XrmToolBox" version="1.2025.10.74" />
+      </group>
     </dependencies>
   </metadata>
   <files>
     <!-- Placeholder to suppress NU5128 (no lib assemblies — plugin package, not a library) -->
     <file src="lib\net48\_._" target="lib\net48\" />
+
+    <!-- Package icon (embedded, replaces deprecated iconUrl) -->
+    <file src="icons\icon-64.png" target="icons\" />
 
     <!-- README for NuGet.org package page -->
     <file src="README.md" target="" />
