@@ -1,23 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
 using DataverseBlueprint.Exporters;
 using DataverseBlueprint.Models;
 using DataverseBlueprint.Services;
 using DataverseBlueprint.Settings;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace DataverseBlueprint
 {
+
     public partial class DataverseBlueprintControl : PluginControlBase, ISettingsPlugin, IGitHubPlugin, IStatusBarMessenger
     {
         private DataverseBlueprintSettings _settings;

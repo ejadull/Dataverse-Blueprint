@@ -10,6 +10,13 @@ using XrmToolBox.Extensibility.Interfaces;
 namespace DataverseBlueprint
 {
     [Export(typeof(IXrmToolBoxPlugin))]
+    [ExportMetadata("Name", "Dataverse Blueprint")]
+    [ExportMetadata("Description", "Export Dataverse entity model to DBML, Mermaid, PlantUML, SVG and PNG")]
+    [ExportMetadata("BackgroundColor", "#0078d4")] // Azul corporativo o el que prefieras
+    [ExportMetadata("PrimaryFontColor", "#ffffff")]
+    [ExportMetadata("SecondaryFontColor", "#f3f2f1")]
+    [ExportMetadata("SmallImageBase64", null)] // Puedes añadir un icono en base64 luego
+    [ExportMetadata("BigImageBase64", null)]
     public class DataverseBlueprintPlugin : PluginBase, IPluginMetadata
     {
         public override IXrmToolBoxPluginControl GetControl() => new DataverseBlueprintControl();
