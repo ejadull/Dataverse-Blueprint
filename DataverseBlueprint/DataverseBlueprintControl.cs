@@ -7,7 +7,6 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -218,8 +217,6 @@ namespace DataverseBlueprint
             btnExportDbml.Enabled = hasSelection;
             btnExportMermaid.Enabled = hasSelection;
             btnExportPlantUml.Enabled = hasSelection;
-            btnExportSvg.Enabled = hasSelection;
-            btnExportPng.Enabled = hasSelection;
             lblCount.Text = $"{clbEntities.CheckedItems.Count} / {clbEntities.Items.Count} selected";
         }
 
@@ -245,70 +242,6 @@ namespace DataverseBlueprint
                 var content = exporter.Export(selected);
                 File.WriteAllText(dlg.FileName, content, Encoding.UTF8);
                 ShowInfoNotification($"Exported {selected.Count} entities to {Path.GetFileName(dlg.FileName)}", null);
-            }
-        }
-
-        // --- Image exports ---
-
-        private void btnExportSvg_Click(object sender, EventArgs e) => ExportImageAsync(exportPng: false);
-        private void btnExportPng_Click(object sender, EventArgs e) => ExportImageAsync(exportPng: true);
-
-        private async void ExportImageAsync(bool exportPng)
-        {
-            var selected = GetSelectedEntities();
-            if (selected.Count == 0) return;
-
-            var mermaid = new MermaidExporter().Export(selected);
-
-            ISvgRenderer renderer = WebView2SvgRenderer.IsAvailable()
-                ? (ISvgRenderer)new WebView2SvgRenderer(this)
-                : new MermaidInkSvgRenderer();
-
-            string filter = exportPng ? "PNG files|*.png|All files|*.*" : "SVG files|*.svg|All files|*.*";
-            string defaultExt = exportPng ? ".png" : ".svg";
-            string filename;
-
-            using (var dlg = new SaveFileDialog { Filter = filter, DefaultExt = defaultExt })
-            {
-                if (dlg.ShowDialog(this) != DialogResult.OK) return;
-                filename = dlg.FileName;
-            }
-
-            Cursor = Cursors.WaitCursor;
-            try
-            {
-                var svg = await renderer.RenderAsync(mermaid);
-                if (string.IsNullOrEmpty(svg))
-                {
-                    ShowErrorNotification("Failed to render diagram. Verify the Mermaid syntax is valid.", null);
-                    return;
-                }
-
-                if (exportPng)
-                {
-                    var bmp = new PngConverter().Convert(svg);
-                    if (bmp == null)
-                    {
-                        ShowErrorNotification("Failed to convert SVG to PNG.", null);
-                        return;
-                    }
-                    using (bmp)
-                        bmp.Save(filename, ImageFormat.Png);
-                }
-                else
-                {
-                    File.WriteAllText(filename, svg, Encoding.UTF8);
-                }
-
-                ShowInfoNotification($"Exported to {Path.GetFileName(filename)}", null);
-            }
-            catch (Exception ex)
-            {
-                ShowErrorNotification(ex.Message, null);
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
             }
         }
 

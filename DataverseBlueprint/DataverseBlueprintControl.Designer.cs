@@ -30,8 +30,6 @@ namespace DataverseBlueprint
             this.btnExportDbml = new System.Windows.Forms.Button();
             this.btnExportMermaid = new System.Windows.Forms.Button();
             this.btnExportPlantUml = new System.Windows.Forms.Button();
-            this.btnExportSvg = new System.Windows.Forms.Button();
-            this.btnExportPng = new System.Windows.Forms.Button();
             this.btnSort = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
 
@@ -156,8 +154,6 @@ namespace DataverseBlueprint
             this.clbEntities.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbEntities_ItemCheck);
 
             // pnlExport
-            this.pnlExport.Controls.Add(this.btnExportPng);
-            this.pnlExport.Controls.Add(this.btnExportSvg);
             this.pnlExport.Controls.Add(this.btnExportPlantUml);
             this.pnlExport.Controls.Add(this.btnExportMermaid);
             this.pnlExport.Controls.Add(this.btnExportDbml);
@@ -199,24 +195,6 @@ namespace DataverseBlueprint
             this.btnExportPlantUml.TabIndex = 2;
             this.btnExportPlantUml.Text = "PlantUML";
             this.btnExportPlantUml.Click += new System.EventHandler(this.btnExportPlantUml_Click);
-
-            // btnExportSvg
-            this.btnExportSvg.Enabled = false;
-            this.btnExportSvg.Location = new System.Drawing.Point(364, 9);
-            this.btnExportSvg.Name = "btnExportSvg";
-            this.btnExportSvg.Size = new System.Drawing.Size(70, 26);
-            this.btnExportSvg.TabIndex = 3;
-            this.btnExportSvg.Text = "SVG";
-            this.btnExportSvg.Click += new System.EventHandler(this.btnExportSvg_Click);
-
-            // btnExportPng
-            this.btnExportPng.Enabled = false;
-            this.btnExportPng.Location = new System.Drawing.Point(442, 9);
-            this.btnExportPng.Name = "btnExportPng";
-            this.btnExportPng.Size = new System.Drawing.Size(70, 26);
-            this.btnExportPng.TabIndex = 4;
-            this.btnExportPng.Text = "PNG";
-            this.btnExportPng.Click += new System.EventHandler(this.btnExportPng_Click);
 
             // DataverseBlueprintControl
             // Controls.Add order controls docking priority:
@@ -260,7 +238,5 @@ namespace DataverseBlueprint
         private System.Windows.Forms.Button btnExportDbml;
         private System.Windows.Forms.Button btnExportMermaid;
         private System.Windows.Forms.Button btnExportPlantUml;
-        private System.Windows.Forms.Button btnExportSvg;
-        private System.Windows.Forms.Button btnExportPng;
     }
 }
