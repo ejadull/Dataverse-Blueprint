@@ -32,6 +32,8 @@ namespace DataverseBlueprint
             this.btnExportPlantUml = new System.Windows.Forms.Button();
             this.btnExportSvg = new System.Windows.Forms.Button();
             this.btnExportPng = new System.Windows.Forms.Button();
+            this.btnSort = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
 
             this.pnlFilter.SuspendLayout();
             this.pnlActions.SuspendLayout();
@@ -98,6 +100,8 @@ namespace DataverseBlueprint
 
             // pnlActions
             this.pnlActions.Controls.Add(this.lblCount);
+            this.pnlActions.Controls.Add(this.txtSearch);
+            this.pnlActions.Controls.Add(this.btnSort);
             this.pnlActions.Controls.Add(this.btnDeselectAll);
             this.pnlActions.Controls.Add(this.btnSelectAll);
             this.pnlActions.Dock = System.Windows.Forms.DockStyle.Top;
@@ -121,9 +125,24 @@ namespace DataverseBlueprint
             this.btnDeselectAll.Text = "Deselect All";
             this.btnDeselectAll.Click += new System.EventHandler(this.btnDeselectAll_Click);
 
+            // btnSort
+            this.btnSort.Location = new System.Drawing.Point(210, 6);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(30, 24);
+            this.btnSort.TabIndex = 2;
+            this.btnSort.Text = "▲";
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+
+            // txtSearch
+            this.txtSearch.Location = new System.Drawing.Point(248, 6);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(220, 22);
+            this.txtSearch.TabIndex = 3;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+
             // lblCount
             this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(210, 11);
+            this.lblCount.Location = new System.Drawing.Point(480, 11);
             this.lblCount.Name = "lblCount";
             this.lblCount.Text = "0 / 0 selected";
 
@@ -234,6 +253,8 @@ namespace DataverseBlueprint
         private System.Windows.Forms.Button btnDeselectAll;
         private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.CheckedListBox clbEntities;
+        private System.Windows.Forms.Button btnSort;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Panel pnlExport;
         private System.Windows.Forms.Label lblExport;
         private System.Windows.Forms.Button btnExportDbml;

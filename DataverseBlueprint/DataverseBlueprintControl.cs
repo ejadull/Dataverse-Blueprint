@@ -25,6 +25,7 @@ namespace DataverseBlueprint
         private DataverseBlueprintSettings _settings;
         private IMetadataService _service;
         private List<EntityModel> _entities = new List<EntityModel>();
+        private bool _sortAscending = true;
 
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
@@ -152,10 +153,41 @@ namespace DataverseBlueprint
 
         private void PopulateList(List<EntityModel> entities)
         {
+            _entities = entities;
+            ApplyFilterAndSort();
+        }
+
+        private void ApplyFilterAndSort()
+        {
+            var term = txtSearch.Text.Trim().ToLowerInvariant();
+
+            IEnumerable<EntityModel> result = _entities;
+
+            if (!string.IsNullOrEmpty(term))
+                result = result.Where(e =>
+                    e.LogicalName.ToLowerInvariant().Contains(term) ||
+                    (e.DisplayName ?? string.Empty).ToLowerInvariant().Contains(term));
+
+            result = _sortAscending
+                ? result.OrderBy(e => e.DisplayName ?? e.LogicalName)
+                : result.OrderByDescending(e => e.DisplayName ?? e.LogicalName);
+
             clbEntities.Items.Clear();
-            foreach (var entity in entities)
+            foreach (var entity in result)
                 clbEntities.Items.Add(entity, true);
             UpdateExportButtonState();
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            _sortAscending = !_sortAscending;
+            btnSort.Text = _sortAscending ? "▲" : "▼";
+            ApplyFilterAndSort();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilterAndSort();
         }
 
         // --- Select / Deselect All ---
