@@ -17,8 +17,6 @@ Connect to any Dataverse environment, select the entities you care about, and ex
 | **DBML** | [dbdiagram.io](https://dbdiagram.io) — interactive ER diagrams |
 | **Mermaid** | GitHub, GitLab, Notion, Confluence, [mermaid.live](https://mermaid.live) |
 | **PlantUML** | UML-based documentation pipelines |
-| **SVG** | Scalable vector diagrams for docs and presentations |
-| **PNG** | Raster images for reports, slides, and wikis |
 
 ---
 
@@ -28,9 +26,6 @@ Connect to any Dataverse environment, select the entities you care about, and ex
 |-----------|-----------------|
 | XrmToolBox | 1.2023.x |
 | .NET Framework | 4.8 |
-| Microsoft Edge WebView2 Runtime | Latest ([download](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)) |
-
-> **WebView2** is only required for SVG and PNG export. If not installed, the plugin automatically falls back to the [mermaid.ink](https://mermaid.ink) public API.
 
 ---
 
@@ -78,11 +73,37 @@ Produces a fenced ` ```mermaid ``` ` block with `erDiagram` syntax. Paste it dir
 ### PlantUML
 Produces an `@startuml` / `@enduml` block with entity notation. Primary key attributes are marked with `*`. Works with any [PlantUML](https://www.plantuml.com/plantuml) renderer or CI pipeline integration.
 
-### SVG
-The Mermaid diagram is rendered inside an embedded [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) browser using the official [mermaid.js](https://mermaid.js.org/) library. The resulting SVG is extracted directly from the DOM — no external service required when WebView2 is present. Falls back to [mermaid.ink](https://mermaid.ink) if WebView2 is not installed.
+---
 
-### PNG
-The SVG is rasterized using [Svg.NET](https://github.com/svg-net/SVG) at full resolution. Useful for reports and documentation where a static image is preferred.
+## Screenshots
+
+### Plugin in XrmToolBox
+
+![Dataverse Blueprint in XrmToolBox](icons/ima1.png)
+
+---
+
+### Mermaid export
+
+Paste the output directly into GitHub, Notion, or [mermaid.live](https://mermaid.live).
+
+![Mermaid export example](icons/Screenshot_1.png)
+
+---
+
+### PlantUML export
+
+Compatible with any PlantUML renderer or CI pipeline integration.
+
+![PlantUML export example](icons/Screenshot_2.png)
+
+---
+
+### DBML export (dbdiagram.io)
+
+Paste the output into [dbdiagram.io](https://dbdiagram.io) for an interactive ER diagram.
+
+![DBML export example](icons/Screenshot_3.png)
 
 ---
 
